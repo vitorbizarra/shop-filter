@@ -1,3 +1,5 @@
-<div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+<div class="size-full flex items-center justify-center text-center">
+    <flux:heading weight="bold">
+        Welcome to Shop Filter!
+    </flux:heading>
 </div>
