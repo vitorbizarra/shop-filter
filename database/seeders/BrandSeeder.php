@@ -15,6 +15,21 @@ class BrandSeeder extends Seeder
             ['name' => 'Sony'],
             ['name' => 'LG'],
             ['name' => 'Microsoft'],
+            ['name' => 'Dell'],
+            ['name' => 'HP'],
+            ['name' => 'Lenovo'],
+            ['name' => 'Asus'],
+            ['name' => 'Acer'],
+            ['name' => 'Google'],
+            ['name' => 'Amazon'],
+            ['name' => 'Xiaomi'],
+            ['name' => 'Huawei'],
+            ['name' => 'OnePlus'],
+            ['name' => 'Motorola'],
+            ['name' => 'Nokia'],
+            ['name' => 'Bose'],
+            ['name' => 'JBL'],
+            ['name' => 'Philips'],
         ];
 
         Brand::factory(count($brands))

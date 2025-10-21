@@ -10,11 +10,21 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Electronics'],
-            ['name' => 'Books'],
-            ['name' => 'Clothing'],
-            ['name' => 'Home & Kitchen'],
-            ['name' => 'Sports & Outdoors'],
+            ['name' => 'Smartphones'],
+            ['name' => 'Tablets'],
+            ['name' => 'Laptops'],
+            ['name' => 'Desktops'],
+            ['name' => 'Monitors'],
+            ['name' => 'Headphones'],
+            ['name' => 'Speakers'],
+            ['name' => 'Smartwatches'],
+            ['name' => 'E-readers'],
+            ['name' => 'Keyboards'],
+            ['name' => 'Mice'],
+            ['name' => 'Webcams'],
+            ['name' => 'Gaming Consoles'],
+            ['name' => 'Smart Home'],
+            ['name' => 'Chargers & Cables'],
         ];
 
         Category::factory(count($categories))

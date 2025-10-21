@@ -14,11 +14,27 @@ class ProductSeeder extends Seeder
         $brands = Brand::all();
         $categories = Category::all();
 
-        Product::factory(50)
-            ->recycle($brands)
-            ->create()
-            ->each(fn (Product $product) => $product->categories()->attach(
-                $categories->random(rand(1, 3))->pluck('id')
-            ));
+        $brands->each(function (Brand $brand) use ($categories) {
+            $names = collect([
+                'Notebook',
+                'Smartphone',
+                'Tablet',
+                'Monitor',
+                'Headphones',
+                'Smartwatch',
+                'Speaker',
+                'Desktop PC',
+                'Gaming Console',
+                'E-reader',
+            ])->take(rand(3, 10));
+
+            Product::factory($names->count())
+                ->for($brand)
+                ->sequence(...$names->map(fn (string $name) => ['name' => "$name"]))
+                ->create()
+                ->each(fn (Product $product) => $product->categories()->attach(
+                    $categories->random(rand(1, 2))->pluck('id')
+                ));
+        });
     }
 }
