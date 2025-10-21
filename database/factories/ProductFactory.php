@@ -13,8 +13,8 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->words(),
-            'description' => fake()->text(),
+            'name' => fake()->words(2, true),
+            'description' => fake()->sentence(10),
             'brand_id' => Brand::factory(),
         ];
     }
