@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
@@ -30,9 +31,34 @@ class Filters extends Component
             ->get();
     }
 
+    #[Computed]
+    public function categories(): Collection
+    {
+        return Category::query()
+            ->withCount('products')
+            ->orderBy('name')
+            ->take($this->loadedCategories)
+            ->get();
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->dispatch('filters::search-updated', ['search' => $this->search]);
+    }
+
     public function loadMoreBrands(): void
     {
-        $this->loadedBrands += 4;
+        $this->loadMore('loadedBrands');
+    }
+
+    public function loadMoreCategories(): void
+    {
+        $this->loadMore('loadedCategories');
+    }
+
+    private function loadMore(string $property, int $increment = 4): void
+    {
+        $this->{$property} += $increment;
     }
 
     public function render(): View
