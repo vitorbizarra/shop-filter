@@ -1,9 +1,9 @@
 <?php
 
-use App\Livewire\Home;
+use App\Livewire\Products;
 use Livewire\Livewire;
 
 it('renders successfully', function () {
-    Livewire::test(Home::class)
+    Livewire::test(Products::class)
         ->assertStatus(200);
 });

@@ -14,7 +14,7 @@
         <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
             <flux:sidebar.header>
                 <flux:brand 
-                    href="{{ route('home') }}"
+                    href="{{ route('products') }}"
                     name="{{ config('app.name') }}">
                     <x-slot name="logo" class="rounded size-6 bg-zinc-900 text-zinc-50 border border-zinc-900 dark:border-zinc-50">
                         <flux:icon name="shopping-cart" variant="micro" />
