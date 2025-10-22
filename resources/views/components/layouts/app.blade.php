@@ -24,6 +24,10 @@
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
+            <div>
+                <livewire:filters />
+            </div>
+
             <flux:spacer />
 
             <flux:radio.group x-data variant="segmented" x-model="$flux.appearance">
