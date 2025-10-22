@@ -331,3 +331,73 @@ describe('category ordering and counting', function () {
             ->assertSet('categories.0.products_count', 0);
     });
 });
+
+describe('clear filters', function () {
+    it('can clear all filters at once', function () {
+        $brand = Brand::factory()->create();
+        $category = Category::factory()->create();
+
+        livewire(Filters::class)
+            ->set('search', 'laptop')
+            ->set('selectedBrands', [$brand->id])
+            ->set('selectedCategories', [$category->id])
+            ->call('clearFilters')
+            ->assertSet('search', '')
+            ->assertSet('selectedBrands', [])
+            ->assertSet('selectedCategories', []);
+    });
+
+    it('dispatches events when clearing filters', function () {
+        $brand = Brand::factory()->create();
+        $category = Category::factory()->create();
+
+        livewire(Filters::class)
+            ->set('search', 'laptop')
+            ->set('selectedBrands', [$brand->id])
+            ->set('selectedCategories', [$category->id])
+            ->call('clearFilters')
+            ->assertDispatched('filters::reset');
+    });
+
+    it('shows clear button only when filters are active', function () {
+        livewire(Filters::class)
+            ->assertDontSee(__('Clear All'));
+
+        livewire(Filters::class)
+            ->set('search', 'test')
+            ->assertSee(__('Clear All'));
+    });
+
+    it('shows active filters indicator when any filter is set', function () {
+        livewire(Filters::class)
+            ->assertDontSee(__('Active Filters'));
+
+        livewire(Filters::class)
+            ->set('search', 'laptop')
+            ->assertSee(__('Active Filters'));
+    });
+});
+
+describe('url persistence', function () {
+    it('loads search from url parameters on mount', function () {
+        livewire(Filters::class)
+            ->call('$set', 'search', 'laptop')
+            ->assertSet('search', 'laptop');
+    });
+
+    it('loads brands from url parameters on mount', function () {
+        $brand = Brand::factory()->create();
+
+        livewire(Filters::class)
+            ->call('$set', 'selectedBrands', [$brand->id])
+            ->assertSet('selectedBrands', [$brand->id]);
+    });
+
+    it('loads categories from url parameters on mount', function () {
+        $category = Category::factory()->create();
+
+        livewire(Filters::class)
+            ->call('$set', 'selectedCategories', [$category->id])
+            ->assertSet('selectedCategories', [$category->id]);
+    });
+});

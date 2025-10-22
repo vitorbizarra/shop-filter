@@ -1,6 +1,22 @@
 <div class="space-y-4">
+    {{-- Clear Filters Button --}}
+    @if($search || $selectedBrands || $selectedCategories)
+        <div class="flex items-center justify-between">
+            <flux:text size="sm" weight="semibold">
+                {{ __('Active Filters') }}
+            </flux:text>
+            <flux:button
+                wire:click="clearFilters"
+                size="xs"
+                variant="ghost"
+                icon="x-mark">
+                {{ __('Clear All') }}
+            </flux:button>
+        </div>
+    @endif
+
     <div>
-        <flux:input 
+        <flux:input
             wire:model.live="search"
             icon="magnifying-glass"
             placeholder="{{ __('Search Products') }}" />

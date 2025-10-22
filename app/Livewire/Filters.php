@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\HasFilters;
 use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,11 +12,7 @@ use Livewire\Component;
 
 class Filters extends Component
 {
-    public string $search = '';
-
-    public array $selectedBrands = [];
-
-    public array $selectedCategories = [];
+    use HasFilters;
 
     public int $loadedBrands = 4;
 
@@ -69,6 +66,12 @@ class Filters extends Component
     private function loadMore(string $property, int $increment = 4): void
     {
         $this->{$property} += $increment;
+    }
+
+    public function clearFilters(): void
+    {
+        $this->reset(['search', 'selectedBrands', 'selectedCategories']);
+        $this->dispatch('filters::reset');
     }
 
     public function render(): View
