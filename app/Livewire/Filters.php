@@ -46,6 +46,16 @@ class Filters extends Component
         $this->dispatch('filters::search-updated', ['search' => $this->search]);
     }
 
+    public function updatedSelectedBrands(): void
+    {
+        $this->dispatch('filters::brands-updated', ['brands' => $this->selectedBrands]);
+    }
+
+    public function updatedSelectedCategories(): void
+    {
+        $this->dispatch('filters::categories-updated', ['categories' => $this->selectedCategories]);
+    }
+
     public function loadMoreBrands(): void
     {
         $this->loadMore('loadedBrands');

@@ -47,6 +47,14 @@ describe('brand filtering', function () {
             ->assertSet('selectedBrands', [$brand->id]);
     });
 
+    it('dispatches event when a brand is selected', function () {
+        $brand = Brand::factory()->create(['name' => 'Apple']);
+
+        livewire(Filters::class)
+            ->set('selectedBrands', [$brand->id])
+            ->assertDispatched('filters::brands-updated', ['brands' => [$brand->id]]);
+    });
+
     it('can select multiple brands', function () {
         $brands = Brand::factory(3)->create();
 
@@ -55,6 +63,15 @@ describe('brand filtering', function () {
         livewire(Filters::class)
             ->set('selectedBrands', $brandIds)
             ->assertSet('selectedBrands', $brandIds);
+    });
+
+    it('dispatches event when multiple brands are selected', function () {
+        $brands = Brand::factory(3)->create();
+        $brandIds = $brands->pluck('id')->toArray();
+
+        livewire(Filters::class)
+            ->set('selectedBrands', $brandIds)
+            ->assertDispatched('filters::brands-updated', ['brands' => $brandIds]);
     });
 
     it('can deselect a brand', function () {
@@ -66,6 +83,15 @@ describe('brand filtering', function () {
             ->assertSet('selectedBrands', [$firstBrand->id]);
     });
 
+    it('dispatches event when a brand is deselected', function () {
+        [$firstBrand, $secondBrand] = Brand::factory(2)->create();
+
+        livewire(Filters::class)
+            ->set('selectedBrands', [$firstBrand->id, $secondBrand->id])
+            ->set('selectedBrands', [$firstBrand->id])
+            ->assertDispatched('filters::brands-updated', ['brands' => [$firstBrand->id]]);
+    });
+
     it('can clear all selected brands', function () {
         $brands = Brand::factory(3)->create();
 
@@ -73,6 +99,15 @@ describe('brand filtering', function () {
             ->set('selectedBrands', $brands->pluck('id')->toArray())
             ->set('selectedBrands', [])
             ->assertSet('selectedBrands', []);
+    });
+
+    it('dispatches event when all brands are cleared', function () {
+        $brands = Brand::factory(3)->create();
+
+        livewire(Filters::class)
+            ->set('selectedBrands', $brands->pluck('id')->toArray())
+            ->set('selectedBrands', [])
+            ->assertDispatched('filters::brands-updated', ['brands' => []]);
     });
 });
 
@@ -159,6 +194,14 @@ describe('category filtering', function () {
             ->assertSet('selectedCategories', [$category->id]);
     });
 
+    it('dispatches event when a category is selected', function () {
+        $category = Category::factory()->create(['name' => 'Electronics']);
+
+        livewire(Filters::class)
+            ->set('selectedCategories', [$category->id])
+            ->assertDispatched('filters::categories-updated', ['categories' => [$category->id]]);
+    });
+
     it('can select multiple categories', function () {
         $categories = Category::factory(3)->create();
         $categoryIds = $categories->pluck('id')->toArray();
@@ -166,6 +209,15 @@ describe('category filtering', function () {
         livewire(Filters::class)
             ->set('selectedCategories', $categoryIds)
             ->assertSet('selectedCategories', $categoryIds);
+    });
+
+    it('dispatches event when multiple categories are selected', function () {
+        $categories = Category::factory(3)->create();
+        $categoryIds = $categories->pluck('id')->toArray();
+
+        livewire(Filters::class)
+            ->set('selectedCategories', $categoryIds)
+            ->assertDispatched('filters::categories-updated', ['categories' => $categoryIds]);
     });
 
     it('can deselect a category', function () {
@@ -177,6 +229,15 @@ describe('category filtering', function () {
             ->assertSet('selectedCategories', [$firstCategory->id]);
     });
 
+    it('dispatches event when a category is deselected', function () {
+        [$firstCategory, $secondCategory] = Category::factory(2)->create();
+
+        livewire(Filters::class)
+            ->set('selectedCategories', [$firstCategory->id, $secondCategory->id])
+            ->set('selectedCategories', [$firstCategory->id])
+            ->assertDispatched('filters::categories-updated', ['categories' => [$firstCategory->id]]);
+    });
+
     it('can clear all selected categories', function () {
         $categories = Category::factory(3)->create();
 
@@ -184,6 +245,15 @@ describe('category filtering', function () {
             ->set('selectedCategories', $categories->pluck('id')->toArray())
             ->set('selectedCategories', [])
             ->assertSet('selectedCategories', []);
+    });
+
+    it('dispatches event when all categories are cleared', function () {
+        $categories = Category::factory(3)->create();
+
+        livewire(Filters::class)
+            ->set('selectedCategories', $categories->pluck('id')->toArray())
+            ->set('selectedCategories', [])
+            ->assertDispatched('filters::categories-updated', ['categories' => []]);
     });
 });
 
