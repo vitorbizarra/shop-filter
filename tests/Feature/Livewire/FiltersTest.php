@@ -27,14 +27,14 @@ describe('search', function () {
     it('dispatches event when search is updated', function () {
         livewire(Filters::class)
             ->set('search', 'laptop')
-            ->assertDispatched('filters::search-updated', ['search' => 'laptop']);
+            ->assertDispatched('filters::search-updated', search: 'laptop');
     });
 
     it('dispatches event with empty string when search is cleared', function () {
         livewire(Filters::class)
             ->set('search', 'laptop')
             ->set('search', '')
-            ->assertDispatched('filters::search-updated', ['search' => '']);
+            ->assertDispatched('filters::search-updated', search: '');
     });
 });
 
@@ -52,7 +52,7 @@ describe('brand filtering', function () {
 
         livewire(Filters::class)
             ->set('selectedBrands', [$brand->id])
-            ->assertDispatched('filters::brands-updated', ['brands' => [$brand->id]]);
+            ->assertDispatched('filters::brands-updated', brands: [$brand->id]);
     });
 
     it('can select multiple brands', function () {
@@ -71,7 +71,7 @@ describe('brand filtering', function () {
 
         livewire(Filters::class)
             ->set('selectedBrands', $brandIds)
-            ->assertDispatched('filters::brands-updated', ['brands' => $brandIds]);
+            ->assertDispatched('filters::brands-updated', brands: $brandIds);
     });
 
     it('can deselect a brand', function () {
@@ -89,7 +89,7 @@ describe('brand filtering', function () {
         livewire(Filters::class)
             ->set('selectedBrands', [$firstBrand->id, $secondBrand->id])
             ->set('selectedBrands', [$firstBrand->id])
-            ->assertDispatched('filters::brands-updated', ['brands' => [$firstBrand->id]]);
+            ->assertDispatched('filters::brands-updated', brands: [$firstBrand->id]);
     });
 
     it('can clear all selected brands', function () {
@@ -107,7 +107,7 @@ describe('brand filtering', function () {
         livewire(Filters::class)
             ->set('selectedBrands', $brands->pluck('id')->toArray())
             ->set('selectedBrands', [])
-            ->assertDispatched('filters::brands-updated', ['brands' => []]);
+            ->assertDispatched('filters::brands-updated', brands: []);
     });
 });
 
@@ -199,7 +199,7 @@ describe('category filtering', function () {
 
         livewire(Filters::class)
             ->set('selectedCategories', [$category->id])
-            ->assertDispatched('filters::categories-updated', ['categories' => [$category->id]]);
+            ->assertDispatched('filters::categories-updated', categories: [$category->id]);
     });
 
     it('can select multiple categories', function () {
@@ -217,7 +217,7 @@ describe('category filtering', function () {
 
         livewire(Filters::class)
             ->set('selectedCategories', $categoryIds)
-            ->assertDispatched('filters::categories-updated', ['categories' => $categoryIds]);
+            ->assertDispatched('filters::categories-updated', categories: $categoryIds);
     });
 
     it('can deselect a category', function () {
@@ -235,7 +235,7 @@ describe('category filtering', function () {
         livewire(Filters::class)
             ->set('selectedCategories', [$firstCategory->id, $secondCategory->id])
             ->set('selectedCategories', [$firstCategory->id])
-            ->assertDispatched('filters::categories-updated', ['categories' => [$firstCategory->id]]);
+            ->assertDispatched('filters::categories-updated', categories: [$firstCategory->id]);
     });
 
     it('can clear all selected categories', function () {
@@ -253,7 +253,7 @@ describe('category filtering', function () {
         livewire(Filters::class)
             ->set('selectedCategories', $categories->pluck('id')->toArray())
             ->set('selectedCategories', [])
-            ->assertDispatched('filters::categories-updated', ['categories' => []]);
+            ->assertDispatched('filters::categories-updated', categories: []);
     });
 });
 
